@@ -1,0 +1,22 @@
+uuid: 44bd4a8f-91e5-4ce9-a046-682381284980
+langcode: en
+status: true
+dependencies:
+  module:
+    - products
+  theme:
+    - olivero
+_core:
+  default_config_hash: 4xVqmhSBnkGldzruuWLcpXD86_JTOLunSuuOuKSy8VI
+id: qrcodeblock_2
+theme: olivero
+region: sidebar
+weight: -7
+provider: null
+plugin: qb_code_block
+settings:
+  id: qb_code_block
+  label: 'To Purchase a this product on our app to avail exclusive app-only '
+  label_display: visible
+  provider: products
+visibility: {  }

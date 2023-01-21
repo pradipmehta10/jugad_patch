@@ -1,0 +1,7 @@
+name: Products Jugad Patches
+description: Products Jugad Patches show module.
+core_version_requirement: ^9 || ^10
+type: module
+package: custom
+dependencies:
+  - drupal:block

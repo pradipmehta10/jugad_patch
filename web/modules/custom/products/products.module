@@ -1,0 +1,53 @@
+<?php
+/**
+ * Hook_uninstall().
+ */
+function products_uninstall() {
+
+// Delete all nodes of given content type.
+
+  $storage_handler = \Drupal::entityTypeManager()
+    ->getStorage('node');
+  $nodes = $storage_handler->loadByProperties(['type' => 'products']);
+  $storage_handler->delete($nodes);
+
+    // Delete content type.
+  $content_type = \Drupal::entityTypeManager()
+    ->getStorage('node_type')
+    ->load('products');
+  $content_type->delete();
+
+}
+
+
+/**
+ * Clearing the cache of Barcode before rending the node, because we haven't done custom thiming so it is
+ * slightly difficult to use cache:tag and cache:content, we can do this using cache: contexts and cache tag.
+ *
+ * Implements hook_preprocess_page().
+ */
+
+function products_preprocess_page(&$vars) {
+    
+    if(isset($vars['node']) && $vars['node']->getType() == 'products') {
+    
+    \Drupal::service('cache.render')->invalidateAll();
+
+    }
+  }
+
+/**
+ * @file
+ * Primary module hooks for products module.
+ *
+ * Implements hook_theme().
+ */
+function products_theme($existing, $type, $theme, $path) {
+
+    return [
+      'qrcode_display' => [
+        'variables' => ['data' => []],
+        'template' => 'qrcode-display',
+      ],
+    ];
+  }
